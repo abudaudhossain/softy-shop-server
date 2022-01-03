@@ -33,12 +33,22 @@ async function run() {
         })
         //get api one Product by id
         app.get('/product/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
+            const id = parseInt(req.params.id);
+            const query = { id: id };
             const result = await productsCollection.findOne(query);
 
             res.send(result);
 
+        })
+
+        //get product by category
+        app.get('/products/category/:category', async(req,res) =>{
+            const category = req.params.category;
+            const query = {category: category}
+            const result = await productsCollection.find(query).toArray();
+            console.log(result);
+
+            res.send(result);
         })
 
         // get all user api 
@@ -54,6 +64,20 @@ async function run() {
             const result = await usersCollection.insertOne(user);
             res.send(result);
         })
+          //Order api 
+          app.post('/addOrder', async (req, res) => {
+            const order = req.body;
+            const result = await orderCollection.insertOne(order);
+            res.send(result)
+        })
+        //get order list for user api
+        app.post('/myOrder', async (req, res) => {
+            const email = req.body;
+            // const query = {};
+            const result = await orderCollection.find(email).toArray();
+            res.send(result)
+        })
+
 
     } finally {
         // await client.close();
