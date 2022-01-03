@@ -46,7 +46,6 @@ async function run() {
             const category = req.params.category;
             const query = {category: category}
             const result = await productsCollection.find(query).toArray();
-            console.log(result);
 
             res.send(result);
         })
