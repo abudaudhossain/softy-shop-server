@@ -120,7 +120,7 @@ async function run() {
             res.json(result)
         })
 
-        //update states api
+        //update order states api
         app.put('/updateStates/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
