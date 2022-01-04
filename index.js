@@ -72,7 +72,9 @@ async function run() {
             const result = await usersCollection.insertOne(user);
             res.send(result);
         })
-          //Order api 
+
+
+        //Order api 
           app.post('/addOrder', async (req, res) => {
             const order = req.body;
             const result = await orderCollection.insertOne(order);
@@ -83,6 +85,12 @@ async function run() {
             const email = req.body;
             // const query = {};
             const result = await orderCollection.find(email).toArray();
+            res.send(result)
+        })
+        //get all order
+        app.get('/allOrders', async (req, res) => {
+            const query = {};
+            const result = await orderCollection.find(query).toArray();
             res.send(result)
         })
 
